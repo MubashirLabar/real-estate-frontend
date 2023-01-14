@@ -25,7 +25,7 @@ function Actions({
 
   async function fetchData(payload) {
     const response = await axios.post(
-      `http://localhost:5000/api/generateContent`,
+      `https://real-estate-backend-nu.vercel.app/api/generateContent`,
       payload
     );
     return response.data;
