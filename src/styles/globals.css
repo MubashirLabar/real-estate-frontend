@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Helvetic";
+  src: url("../../src/assets/fonts/helvetica.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Helvetic-Light";
+  src: url("../../src/assets/fonts/helvetica-light.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Helvetic-Bold";
+  src: url("../../src/assets/fonts/helvetica-bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@layer base {
+  :root {
+    --color-primary-700: 42, 120, 224;
+    --color-black-text: 0, 0, 0;
+    --color-white-text: 255, 255, 255;
+  }
+}
+
+@layer base {
+  body,
+  html {
+    @apply font-["Helvetic"];
+  }
+  input,
+  textarea {
+    outline: none;
+    border: none;
+    @apply font-["Helvetic"];
+  }
+}
+
+@layer components {
+  * {
+    @apply scroll-py-[48px];
+  }
+}
+
+@layer utilities {
+  .margins {
+    @apply px-[20px] md:px-[24px] lg:px-[80px] 2xl:px-[134px];
+  }
+
+  .animation {
+    @apply duration-300 transition-all;
+  }
+
+  .hideScroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hideScroll {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .font-regular {
+    @apply font-["Helvetic"];
+  }
+
+  .font-light {
+    @apply font-["Helvetic-Light"];
+  }
+
+  .font-bold {
+    @apply font-["Helvetic-Bold"];
+  }
+
+  .homeHeroBg {
+    background: linear-gradient(112.6deg, #52c693 0.41%, #2a78e0 96.54%);
+    box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.1);
+  }
+
+  .fieldControl {
+    @apply w-full flex flex-col mb-[22px];
+  }
+  .fieldControlLabel {
+    @apply w-full text-white-text text-[16px] leading-[18px] font-bold mb-[9px];
+  }
+  .fieldControlInput {
+    @apply w-full flex items-center bg-white-text h-[36px] rounded-[3px];
+  }
+  .fieldControlInputText {
+    @apply w-full px-3 outline-none border-none text-[14px] text-black-text placeholder:text-["#9CA3AF"];
+  }
+
+  .blogCard {
+    @apply w-full rounded-[10px] bg-white-text h-fit;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+    padding: 30px 35px 40px;
+  }
+  .blogText {
+    @apply text-black-text text-[16px] leading-[22px] mb-[22px];
+  }
+  .blogText:last-child {
+    @apply mb-0;
+  }
+  .tooltip {
+    @apply absolute top-[-52px] py-[8px] px-[16px] rounded-[3px] text-[15px] text-white-text bg-black-text animation flex flex-col justify-center items-center;
+  }
+  .tooltip::after {
+    content: "";
+    @apply absolute bottom-[-4px] h-[8px] w-[8px] text-white-text bg-black-text rotate-[45deg];
+  }
+}
