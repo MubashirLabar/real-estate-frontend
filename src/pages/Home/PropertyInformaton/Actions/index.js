@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { filterValues, contentFilters } from "data";
 import { DownloadIcon } from "assets/icons";
-import FilterButton from "./FilterButton";
+import FilterButton from "./filterButton";
 import Loader from "components/Loader";
-import { removeExtraSpace } from "utils/common";
-import { CSVLink, CSVDownload } from "react-csv";
+import { removeExtraSpace, covertArrayToString } from "utils/common";
+import { CSVLink } from "react-csv";
 
 function Actions({
   values,
@@ -17,15 +17,13 @@ function Actions({
   const [selectedFilters, setSelectedFilters] = useState([contentFilters[0]]);
   const [loading, setLoading] = useState(false);
 
-  console.log("selectedFilters...", selectedFilters);
-  console.log("createdContent", createdContent);
-  // useEffect(() => {
-  //   reGenerateContent();
-  // }, [reGenerate]);
+  useEffect(() => {
+    reGenerateContent();
+  }, [reGenerate]);
 
   async function fetchData(payload) {
     const response = await axios.post(
-      `https://real-estate-backend-nu.vercel.app/api/generateContent`,
+      `http://localhost:5000/api/generateContent`,
       payload
     );
     return response.data;
@@ -48,46 +46,47 @@ function Actions({
     let parkingSpots = values.parkingSpots ? values.parkingSpots + "," : "";
     let neighborhood = values.neighborhood ? values.neighborhood + "," : "";
     let general = values.general ? values.general + "," : "";
-    let story = values.story ? values.story + "," : "";
+    let stories = values.stories ? values.stories + "," : "";
     let garage = values.garage ? values.garage + "," : "";
     let parking = values.parking ? values.parking + "," : "";
     let insideRoom = values.insideRoom ? values.insideRoom + "," : "";
     let kitchen = values.kitchen ? values.kitchen + "," : "";
-    let communityAmenity = values.communityAmenity
-      ? values.communityAmenity + ","
+    let communityAmenities = values.communityAmenities
+      ? values.communityAmenities + ","
       : "";
     let outsideFeature = values.outsideFeature
       ? values.outsideFeature + ","
       : "";
-    let view = values.view ? "and " + values.view : "";
+    let views = values.views ? "and " + values.views : "";
 
-    let prompt_description = `Write a property description about a home with ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view} ${homeStatus}. ${values.description}`;
-    let prompt_blogPost = `Write a 500 word blog post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description}`;
-    let prompt_email = `Write a friendly email with a subject line about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description}`;
-    let prompt_facebookPost = `Write a Facebook advertisement about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description}`;
-    let prompt_linkedInPost = `Write a LinkedIn post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description}`;
-    let prompt_tweet = `Write a tweet about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description}`;
-    let prompt_youtubeScript = `Write a long-form Youtube Script about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description}`;
+    let prompt_description = `Write a property description about a home with ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views} ${homeStatus}. ${values.description}`;
+    let prompt_blogPost = `Write a 500 word blog post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description}`;
+    let prompt_email = `Write a friendly email with a subject line about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description}`;
+    let prompt_facebookPost = `Write a Facebook advertisement about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description}`;
+    let prompt_linkedInPost = `Write a LinkedIn post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description}`;
+    let prompt_tweet = `Write a tweet about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description}`;
+    let prompt_youtubeScript = `Write a long-form Youtube Script about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description}`;
 
+    const inputs = [];
     if (reGenerate) {
       if (reGenerate === "Description") {
-        const res = fetchData({
+        inputs.push({
           title: "Description",
           prompt: removeExtraSpace(prompt_description),
         });
       }
       if (reGenerate === "Blog Post") {
-        fetchData({
+        inputs.push({
           title: "Blog Post",
           prompt: removeExtraSpace(prompt_blogPost),
         });
       }
-      if (reGenerate === "Email") {
-        fetchData({
-          title: "Email",
-          prompt: removeExtraSpace(prompt_email),
-        });
-      }
+      // if (reGenerate === "Email") {
+      //   fetchData({
+      //     title: "Email",
+      //     prompt: removeExtraSpace(prompt_email),
+      //   });
+      // }
       // if (reGenerate === "Facebook Post") {
       //   input = {
       //     title: "Facebook Post",
@@ -112,6 +111,28 @@ function Actions({
       //     prompt: removeExtraSpace(prompt_youtubeScript),
       //   };
       // }
+      const requests = inputs.map(fetchData);
+      Promise.all(requests)
+        .then((responses) => {
+          console.log("regenerated", responses.flat());
+          let res = responses.flat();
+
+          if (res?.length && createdContent.length) {
+            const newArray = createdContent.findIndex(
+              (x) => x.title === res[0].title
+            );
+            console.log("index number is:", newArray, createdContent);
+          } else {
+            setCreatedContent(responses.flat());
+          }
+
+          setLoading(false);
+          setReGenerate(null);
+        })
+        .catch((err) => {
+          setLoading(false);
+          setReGenerate(null);
+        });
     }
   }
 
@@ -136,28 +157,38 @@ function Actions({
         : "";
     let parkingSpots = values.parkingSpots ? values.parkingSpots + "," : "";
     let neighborhood = values.neighborhood ? values.neighborhood + "," : "";
-    let general = values.general ? values.general + "," : "";
-    let story = values.story ? values.story + "," : "";
-    let garage = values.garage ? values.garage + "," : "";
-    let parking = values.parking ? values.parking + "," : "";
-    let insideRoom = values.insideRoom ? values.insideRoom + "," : "";
-    let kitchen = values.kitchen ? values.kitchen + "," : "";
-    let communityAmenity = values.communityAmenity
-      ? values.communityAmenity + ","
+    let general = values.general
+      ? covertArrayToString(values.general) + ","
+      : "";
+    let stories = values.stories
+      ? covertArrayToString(values.stories) + ","
+      : "";
+    let garage = values.garage ? covertArrayToString(values.garage) + "," : "";
+    let parking = values.parking
+      ? covertArrayToString(values.parking) + ","
+      : "";
+    let insideRoom = values.insideRoom
+      ? covertArrayToString(values.insideRoom) + ","
+      : "";
+    let kitchen = values.kitchen
+      ? covertArrayToString(values.kitchen) + ","
+      : "";
+    let communityAmenities = values.communityAmenities
+      ? covertArrayToString(values.communityAmenities) + ","
       : "";
     let outsideFeature = values.outsideFeature
-      ? values.outsideFeature + ","
+      ? covertArrayToString(values.outsideFeature) + ","
       : "";
-    let view = values.view ? "and " + values.view : "";
+    let views = values.views ? "and " + covertArrayToString(values.views) : "";
     let callAction = isCallAction ? "Add a call-to-action." : "";
 
-    let prompt_description = `Write a property description about a home with ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view} ${homeStatus}. ${values.description} ${callAction}`;
-    let prompt_blogPost = `Write a 500 word blog post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description} ${callAction}`;
-    let prompt_email = `Write a friendly email with a subject line about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description} ${callAction}`;
-    let prompt_facebookPost = `Write a Facebook advertisement about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description} ${callAction}`;
-    let prompt_linkedInPost = `Write a LinkedIn post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description} ${callAction}`;
-    let prompt_tweet = `Write a tweet about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description} ${callAction}`;
-    let prompt_youtubeScript = `Write a long-form Youtube Script about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${story} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenity} ${outsideFeature} ${view}. ${values.description} ${callAction}`;
+    let prompt_description = `Write a property description about a home with ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views} ${homeStatus}. ${values.description} ${callAction}`;
+    let prompt_blogPost = `Write a 500 word blog post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description} ${callAction}`;
+    let prompt_email = `Write a friendly email with a subject line about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description} ${callAction}`;
+    let prompt_facebookPost = `Write a Facebook advertisement about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description} ${callAction}`;
+    let prompt_linkedInPost = `Write a LinkedIn post about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description} ${callAction}`;
+    let prompt_tweet = `Write a tweet about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description} ${callAction}`;
+    let prompt_youtubeScript = `Write a long-form Youtube Script about a property that is ${homeStatus} ${bedrooms} ${bathrooms} ${squareFeet} ${city} ${state} with the following descriptors: ${parkingSpots} ${neighborhood} ${general} ${stories} ${garage} ${parking} ${insideRoom} ${kitchen} ${communityAmenities} ${outsideFeature} ${views}. ${values.description} ${callAction}`;
 
     const inputs = [];
     if (selectedFilters.length) {
@@ -225,21 +256,6 @@ function Actions({
     { label: "Content", key: "text" },
   ];
 
-  const csvData = [
-    {
-      title: "Description",
-      text: "Here is my first Content Description",
-    },
-    {
-      title: "Blog Post",
-      text: "Here is my first Content Blog Post",
-    },
-    {
-      title: "Email",
-      text: "Here is my first Content Email",
-    },
-  ];
-
   return (
     <div className="w-full flex flex-col mb-[42px]">
       <div className="w-full flex items-center justify-between mb-[31px]">
@@ -276,7 +292,6 @@ function Actions({
                 <span>Download CSV</span>
               </button>
             </CSVLink>
-            ;
           </>
         )}
       </div>

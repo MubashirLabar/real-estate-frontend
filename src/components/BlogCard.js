@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CopyIcon, RefreshIcon, CheckIcon } from "assets/icons";
-import { TypeAnimation } from "react-type-animation";
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import Typewriter from "./Typewriter";
 
 function BlogCard({ data, setReGenerate }) {
   const [copied, setCopied] = useState(false);
@@ -47,6 +47,7 @@ function BlogCard({ data, setReGenerate }) {
             {copied ? <CheckIcon /> : <CopyIcon />}
             {copied && <div className="tooltip">{copyMsg}</div>}
           </button>
+
           {/* <ReactTooltip
             anchorId="tooltip-clipboard-copy"
             place="top"
@@ -58,13 +59,7 @@ function BlogCard({ data, setReGenerate }) {
         </div>
       </div>
       <div className="w-full flex flex-col">
-        <TypeAnimation
-          sequence={[data.text, 1000]}
-          speed={70}
-          wrapper="div"
-          className="blogText"
-          cursor={false}
-        />
+        <Typewriter text={data.text} className="blogText" delay={40} />
       </div>
     </div>
   );

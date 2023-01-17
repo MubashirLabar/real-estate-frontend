@@ -13,7 +13,6 @@ function FilterButton({ data, selectedFilters, setSelectedFilters }) {
       setSelectedFilters(newFilters);
     } else {
       setIsSelected(true);
-      console.log("existing", selectedFilters);
       setSelectedFilters([...selectedFilters, data]);
     }
   };

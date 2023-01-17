@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Blogs from "./Blogs";
-import PropertyInformation from "./PropertyInformaton";
+import Blogs from "./blogs";
+import PropertyInformation from "./propertyInformaton";
 
 function Home() {
   const [createdContent, setCreatedContent] = useState([]);
@@ -24,6 +24,7 @@ function Home() {
           {createdContent.length ? (
             <Blogs
               createdContent={createdContent}
+              reGenerate={reGenerate}
               setReGenerate={setReGenerate}
             />
           ) : null}
