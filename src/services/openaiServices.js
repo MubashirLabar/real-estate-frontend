@@ -10,12 +10,17 @@ import { url } from "config/environment";
 //   return response.data;
 // }
 
-// SIGN-UP WITH EMAIL AND PASSWORD
+// Generate Content
 function fetchData(payload) {
+  const headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  };
   return axios({
     method: "post",
     url: `${url.baseUrl}api/generateContent`,
     data: payload,
+    headers,
   })
     .then(async function (response) {
       return response.data;
