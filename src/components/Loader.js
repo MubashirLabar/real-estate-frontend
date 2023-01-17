@@ -1,5 +1,3 @@
-import React, { FC } from "react";
-
 function Loader({ size = 36, thin = 4, backgroundColor, color }) {
   return (
     <div

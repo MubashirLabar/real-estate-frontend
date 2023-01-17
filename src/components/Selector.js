@@ -46,8 +46,6 @@ const Selector = ({
     }),
   };
 
-  // const value1 = { value: 'chocolate', label: 'Chocolate' }
-
   let sortedOptions = options.sort(function (a, b) {
     return a?.label?.localeCompare(b?.label);
   });

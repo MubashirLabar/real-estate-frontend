@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { filterValues, contentFilters } from "data";
 import { DownloadIcon } from "assets/icons";
 import FilterButton from "./filterButton";
