@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import InfoForm from "./InfoForm";
 import Actions from "./Actions";
 import Blogs from "./Blogs";
 import { removeExtraSpace, covertArrayToString } from "utils/common";
@@ -141,7 +140,6 @@ function Home() {
           <div className="w-full mb-[66px] text-center font-bold text-[35px] text-black-text leading-[40px]">
             Real Estate Property Content Generator
           </div>
-          <InfoForm formik={formik} onSubmit={onSubmit} />
           <Actions
             values={values}
             createdContent={createdContent}
