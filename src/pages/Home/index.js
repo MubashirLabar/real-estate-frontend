@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import InfoForm from "./infoForm";
-import Actions from "./actions";
-import Blogs from "./blogs";
+import InfoForm from "./InfoForm";
+import Actions from "./Actions";
+import Blogs from "./Blogs";
 import { removeExtraSpace, covertArrayToString } from "utils/common";
 import { filterValues } from "data";
 
