@@ -1,7 +1,6 @@
 // Style
 import "./styles/globals.css";
 import "./styles/loader.css";
-import "react-tooltip/dist/react-tooltip.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

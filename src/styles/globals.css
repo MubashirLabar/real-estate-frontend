@@ -94,7 +94,7 @@
   }
 
   .blogCard {
-    @apply w-full rounded-[10px] bg-white-text h-fit;
+    @apply w-full relative rounded-[10px] bg-white-text h-fit;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
     padding: 30px 35px 40px;
   }
@@ -110,5 +110,10 @@
   .tooltip::after {
     content: "";
     @apply absolute bottom-[-4px] h-[8px] w-[8px] text-white-text bg-black-text rotate-[45deg];
+  }
+
+  .bg-overlay {
+    @apply absolute inset-0 flex items-center justify-center backdrop-blur-[5px] z-10;
+    background: rgba(255, 255, 255, 0.8);
   }
 }

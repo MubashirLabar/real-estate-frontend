@@ -14,8 +14,7 @@ function InfoForm({ formik, onSubmit }) {
           </div>
           <button
             className="font-regular text-white-text text-[12px] 
-        leading-[14px] px-[14.5px] py-[4px] 
-        border border-solid border-white-text rounded-[5px]"
+            leading-[14px] px-[14.5px] py-[4px] border border-solid border-white-text rounded-[5px]"
             type="submit"
           >
             Clear Fields
