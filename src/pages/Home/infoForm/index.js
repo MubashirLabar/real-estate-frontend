@@ -5,6 +5,7 @@ import ChooseOptions from "./chooseOptions";
 
 function InfoForm({ formik, onSubmit }) {
   const { setFieldValue, handleChange, handleBlur, values } = formik;
+
   return (
     <div className="w-full homeHeroBg rounded-[10px] py-[22px] px-[25px] mb-[41px]">
       <form onSubmit={onSubmit}>

@@ -8,7 +8,6 @@ import { filterValues } from "data";
 
 function Home() {
   const [createdContent, setCreatedContent] = useState([]);
-
   const initialValues = {
     homeStatus: "",
     homeType: "",
