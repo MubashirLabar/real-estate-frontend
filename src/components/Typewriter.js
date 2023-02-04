@@ -13,7 +13,7 @@ function Typewriter({ text, className, delay }) {
     const startTyping = () => {
       timeoutId = setTimeout(() => {
         type();
-        if (index <= text.length) {
+        if (index <= text?.length) {
           startTyping();
         }
       }, delay);
