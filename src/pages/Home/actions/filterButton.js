@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import { CheckIcon } from "assets/icons";
+import { filterValues } from "data";
 
 function FilterButton({ data, selectedFilters, setSelectedFilters }) {
   const [isSelected, setIsSelected] = useState(
-    data.value === "description" ? true : false
+    data.value === filterValues.DESCRIPTION ? true : false
   );
 
   const handleCheckbox = () => {
-    if (isSelected) {
-      setIsSelected(false);
-      const newFilters = selectedFilters.filter((x) => x.value !== data.value);
-      setSelectedFilters(newFilters);
+    if (data.value === filterValues.CALL_TO_ACTION) {
+      setIsSelected(!isSelected);
     } else {
-      setIsSelected(true);
-      setSelectedFilters([...selectedFilters, data]);
+      if (isSelected) {
+        setIsSelected(false);
+        const newFilters = selectedFilters.filter(
+          (x) => x.value !== data.value
+        );
+        setSelectedFilters(newFilters);
+      } else {
+        setIsSelected(true);
+        setSelectedFilters([...selectedFilters, data]);
+      }
     }
   };
 
@@ -24,8 +31,10 @@ function FilterButton({ data, selectedFilters, setSelectedFilters }) {
     >
       <div
         className={`w-[15px] h-[15px] flex items-center justify-center 
-        rounded-[4px] mr-[10px] cursor-pointer border border-[#4B4B4B] animation ${
-          isSelected ? "bg-primary-700 border-primary-700" : ""
+        rounded-[4px] mr-[10px] cursor-pointer border animation ${
+          isSelected
+            ? "bg-primary-700 border-primary-700"
+            : "border-[#4B4B4B] bg-transparent"
         }`}
       >
         {isSelected && (

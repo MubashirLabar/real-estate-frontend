@@ -10,6 +10,8 @@ function Actions({ createdContent, setCreatedContent, getInput }) {
   const [selectedFilters, setSelectedFilters] = useState([contentFilters[0]]);
   const [loading, setLoading] = useState(false);
 
+  console.log("selectedFilters...", selectedFilters);
+
   async function createDescription() {
     setLoading(true);
     const isCallAction =
