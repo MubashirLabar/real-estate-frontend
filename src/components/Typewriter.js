@@ -7,7 +7,7 @@ function Typewriter({ text, className, delay }) {
   useEffect(() => {
     let timeoutId;
     const type = () => {
-      setDisplayText(text.slice(0, index));
+      setDisplayText(text?.slice(0, index));
       setIndex(index + 1);
     };
     const startTyping = () => {
