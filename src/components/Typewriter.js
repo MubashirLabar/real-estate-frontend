@@ -26,7 +26,7 @@ function Typewriter({ text, className, delay }) {
     setIndex(0);
   }, [text]);
 
-  const textHTML = displayText.trimStart().replace(/\n/g, "<br/>");
+  const textHTML = displayText?.trimStart()?.replace(/\n/g, "<br/>");
 
   return (
     <div dangerouslySetInnerHTML={{ __html: textHTML }} className={className} />
